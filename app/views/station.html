@@ -7,5 +7,6 @@
   <h1 class="name">
     ${station.name}
   </h1>
-  #{measures station:station /}
+  #{measures station:station, WEATHER_CODES:WEATHER_CODES /}
+  #{addMeasure station:station /}
 </div>

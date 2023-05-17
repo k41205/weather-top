@@ -2,36 +2,43 @@ Measure(m1):
   code: 800
   temp: 5
   windSpeed: 3.5
+  windDirection: 20
   pressure: 1004
 Measure(m2):
   code: 600
   temp: 6
   windSpeed: 3
+  windDirection: 120
   pressure: 999
 Measure(m3):
   code: 700
   temp: 4
   windSpeed: 2.5
+  windDirection: 249
   pressure: 1020
 Measure(m4):
   code: 500
   temp: 6
   windSpeed: 1.8
+  windDirection: 180
   pressure: 1007
 Measure(m5):
   code: 300
   temp: 7.5
   windSpeed: 4
+  windDirection: 90
   pressure: 1001
 Measure(m6):
   code: 200
   temp: 3
   windSpeed: 4.3
+  windDirection: 0
   pressure: 998
 Measure(m7):
   code: 100
   temp: 1
   windSpeed: 4
+  windDirection: 360
   pressure: 980
 
 Station(s1):
