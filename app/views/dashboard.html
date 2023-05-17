@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Dashboard' /}
 
-#{menu id:"dashboard"/}
+#{menu id:"dashboard", user:user /}
 
 #{list items:stations, as:'station'}
 <div class="content box">

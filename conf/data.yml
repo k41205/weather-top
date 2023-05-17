@@ -43,6 +43,8 @@ Measure(m7):
 
 Station(s1):
   name: Dublin
+  latitude: 52.149
+  longitude: -6.994
   measures:
     - m1
     - m2
@@ -51,11 +53,32 @@ Station(s1):
 
 Station(s2):
   name: Waterford
+  latitude: 101.456
+  longitude: -19.044
   measures:
     - m5
     - m6
 
 Station(s3):
   name: Cork
+  latitude: 75.001
+  longitude: -6.204
   measures:
     - m7
+
+User(u1):
+  firstname: homer
+  lastname: simpson
+  email: homer@simpson.com
+  password: secret
+  stations:
+    - s1
+    - s2
+
+User(u2):
+  firstname: marge
+  lastname: simpson
+  email: marge@simpson.com
+  password: secret
+  stations:
+    - s3

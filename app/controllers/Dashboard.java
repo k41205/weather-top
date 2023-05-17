@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import models.User;
 import models.Station;
 import play.Logger;
 import play.mvc.Controller;
@@ -12,17 +13,18 @@ public class Dashboard extends Controller
   public static void index()
   {
     Logger.info("Rendering Dashboard (Dashboard.index)");
-
-    List<Station> stations = Station.findAll();
-    render ("dashboard.html", stations);
+    User user = Accounts.getLoggedInUser();
+    List<Station> stations = user.stations;
+    render ("dashboard.html", user, stations);
   }
 
-  public static void addStation (String name)
+  public static void addStation (String name, float latitude, float longitude)
   {
     Logger.info("Adding a Station (Dashboard.addStation)");
-    Station station = new Station(name);
-    station.save();
-    Logger.info(station.name);
+    User user = Accounts.getLoggedInUser();
+    Station station = new Station(name, latitude, longitude);
+    user.stations.add(station);
+    user.save();
     redirect ("/dashboard");
   }
 }

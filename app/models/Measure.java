@@ -9,11 +9,11 @@ public class Measure extends Model
 {
     public int code;
     public float temp;
-    public int windSpeed;
+    public float windSpeed;
     public float windDirection;
-    public int pressure;
+    public float pressure;
 
-    public Measure(int code, float temp, int windSpeed, float windDirection, int pressure)
+    public Measure(int code, float temp, float windSpeed, float windDirection, float pressure)
     {
         this.code = code;
         this.temp = temp;

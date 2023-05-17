@@ -1,92 +1,163 @@
 <style>
-  .notification-container {
-    display: flex;
-    justify-content: space-around;
-    gap: 2%;
-  }
+    .notification-container {
+        display: flex;
+        justify-content: space-around;
+        gap: 2%;
+    }
 
-  .notification-container .notification {
-    flex: 1;
-  }
+    .notification-container .notification {
+        flex: 1;
+    }
 
-  .notification-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
+    .notification-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
 
-  .notification p {
-    margin: 0 !important;
-  }
+    .notification {
+        display: flex;
+       justify-content: space-around;
+        gap: 15px;
+    }
+
+    .notification p {
+        margin: 0 !important;
+    }
+
+    .icon {
+        width: 64px;
+        display: block;
+    }
+
+    .fa-location-dot {
+        color: #3F6C12;
+    }
+
+    .fa-solid {
+        font-size: 64px;
+    }
+
+    .fa-cloud-sun {
+        color: #3F6C12;
+    }
+
+    .fa-temperature-empty {
+        color: #3F6C12;
+    }
+
+    .fa-wind {
+        color: midnightblue;
+    }
+    .fa-arrows-to-dot{
+        color: #3F6C12;
+    }
 </style>
 
 #{if _station.measures.size() > 0}
 <div class="notification-container">
-  <section class="notification-wrapper">
-    <div class="notification is-dark has-text-white">
-      <h2 class="is-size-5 has-text-weight-bold has-text-white">Weather</h2>
-      <p>
-        ${controllers.StationCtrl.WEATHER_CODES.get(_station.measures.last().code)}
-      </p>
-    </div>
-  </section>
-  <section class="notification-wrapper">
-    <div class="notification is-dark has-text-white">
-      <h2 class="is-size-5 has-text-weight-bold has-text-white">Temperature</h2>
-      <p>${_station.measures.last().temp}°C</p>
-      <p>
-        ${String.format("%.2f", _station.measures.last().temp * 9/5 + 32)}°F
-      </p>
-    </div>
-  </section>
-  <section class="notification-wrapper">
-    <div class="notification is-dark has-text-white">
-      <h2 class="is-size-5 has-text-weight-bold has-text-white">Wind</h2>
-      <p>
-        ${controllers.StationCtrl.speedToBeaufort(_station.measures.last().windSpeed)}
-        bft
-      </p>
-      <p>
-        ${controllers.StationCtrl.degreeToName(_station.measures.last().windDirection)}
-      </p>
-      <p>Feels like</p>
-      <p>
-        ${String.format("%.2f", 13.12 + (0.6215 * _station.measures.last().temp)
-        - 11.37 * (Math.pow(_station.measures.last().windSpeed, 0.16)) + (0.3965
-        * _station.measures.last().temp) *
-        (Math.pow(_station.measures.last().windSpeed, 0.16)))}
-      </p>
-    </div>
-  </section>
-  <section class="notification-wrapper">
-    <div class="notification is-dark has-text-white">
-      <h2 class="is-size-5 has-text-weight-bold has-text-white">Pressure</h2>
-      <p>${_station.measures.last().pressure} hpa</p>
-    </div>
-  </section>
+    <section class="notification-wrapper">
+        <div class="notification is-dark has-text-white">
+            <div>
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">${_station.name}</h2>
+
+                <p>
+                    Lat: ${String.format("%.3f", _station.latitude)}
+                </p>
+                <p>
+                    Lng: ${String.format("%.3f", _station.longitude)}
+                </p>
+            </div>
+            <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+        </div>
+
+
+    </section>
+    <section class="notification-wrapper">
+        <div class="notification is-dark has-text-white">
+            <div>
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">Weather</h2>
+                <p>
+                    ${WeatherUtils.WEATHER_CODES.get(_station.measures.last().code)}
+                </p>
+            </div>
+            <span class="icon"><i class="fa-solid fa-cloud-sun"></i></span>
+        </div>
+    </section>
+    <section class="notification-wrapper">
+        <div class="notification is-dark has-text-white">
+            <div>
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">Temperature</h2>
+                <p>${_station.measures.last().temp}°C</p>
+                <p>
+                    ${String.format("%.2f", _station.measures.last().temp * 9/5 + 32)}°F
+                </p>
+                <p>Max: ${WeatherUtils.maxValue(_station.measures.temp)}</p>
+                <p>Min: ${WeatherUtils.minValue(_station.measures.temp)}</p>
+            </div>
+            <span class="icon"><i class="fa-solid fa-temperature-empty"></i></span>
+        </div>
+    </section>
+    <section class="notification-wrapper">
+        <div class="notification is-dark has-text-white">
+            <div>
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">Wind</h2>
+                <p>
+                    ${WeatherUtils.speedToBeaufort(_station.measures.last().windSpeed)}
+                    bft
+                </p>
+                <p>
+                    ${WeatherUtils.degreeToName(_station.measures.last().windDirection)}
+                </p>
+                <p>Feels like</p>
+                <p>
+                    ${String.format("%.2f", 13.12 + (0.6215 * _station.measures.last().temp)
+                    - 11.37 * (Math.pow(_station.measures.last().windSpeed, 0.16)) + (0.3965
+                    * _station.measures.last().temp) *
+                    (Math.pow(_station.measures.last().windSpeed, 0.16)))}
+                </p>
+                <p>
+                    Max: ${WeatherUtils.maxValue(_station.measures.windSpeed)}
+                    Min: ${WeatherUtils.minValue(_station.measures.windSpeed)}
+                </p>
+            </div>
+            <span class="icon"><i class="fa-solid fa-wind"></i></span>
+        </div>
+    </section>
+    <section class="notification-wrapper">
+        <div class="notification is-dark has-text-white">
+            <div>
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">Pressure</h2>
+                <p>${_station.measures.last().pressure} hpa</p>
+                <p>Max: ${WeatherUtils.maxValue(_station.measures.pressure)}</p>
+                <p>Min: ${WeatherUtils.minValue(_station.measures.pressure)}</p>
+            </div>
+            <span class="icon"><i class="fa-solid fa-arrows-to-dot"></i></span>
+        </div>
+    </section>
 </div>
 <table class="table is-bordered is-fullwidth">
-  <thead>
+    <thead>
     <tr>
-      <th>Code</th>
-      <th>Temperature</th>
-      <th>Wind Speed</th>
-      <th>Wind Direction</th>
-      <th>Pressure</th>
+        <th>Code</th>
+        <th>Temperature</th>
+        <th>Wind Speed</th>
+        <th>Wind Direction</th>
+        <th>Pressure</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     #{list items:_station.measures, as:'measure'}
     <tr>
-      <td>${measure.code}</td>
-      <td>${measure.temp}</td>
-      <td>${measure.windSpeed}</td>
-      <td>${measure.windDirection}</td>
-      <td>${measure.pressure}</td>
+        <td>${measure.code}</td>
+        <td>${measure.temp}</td>
+        <td>${measure.windSpeed}</td>
+        <td>${measure.windDirection}</td>
+        <td>${measure.pressure}</td>
     </tr>
     #{/list}
-  </tbody>
+    </tbody>
 </table>
 #{/if} #{else}
 <p>No measures available</p>
