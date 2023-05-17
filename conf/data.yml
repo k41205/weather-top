@@ -1,0 +1,47 @@
+Measure(m1):
+  code: 800
+  temp: 5
+  windSpeed: 3.5
+Measure(m2):
+  code: 600
+  temp: 6
+  windSpeed: 3
+Measure(m3):
+  code: 700
+  temp: 4
+  windSpeed: 2.5
+Measure(m4):
+  code: 500
+  temp: 6
+  windSpeed: 1.8
+Measure(m5):
+  code: 300
+  temp: 7.5
+  windSpeed: 4
+Measure(m6):
+  code: 200
+  temp: 3
+  windSpeed: 4.3
+Measure(m7):
+  code: 100
+  temp: 1
+  windSpeed: 4
+
+Station(s1):
+  name: Dublin
+  measures:
+    - m1
+    - m2
+    - m3
+    - m4
+
+Station(s2):
+  name: Waterford
+  measures:
+    - m5
+    - m6
+
+Station(s3):
+  name: Cork
+  measures:
+    - m7
