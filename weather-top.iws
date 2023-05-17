@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3da2e6cb-ee52-441c-93b6-48cf202e6a34" name="Changes" comment="" />
+    <list default="true" id="3da2e6cb-ee52-441c-93b6-48cf202e6a34" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/app/WeatherUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/WeatherUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weather-top.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/weather-top.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weather-top.iws" beforeDir="false" afterPath="$PROJECT_DIR$/weather-top.iws" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +21,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -62,7 +69,8 @@
       <workItem from="1683973838639" duration="16691000" />
       <workItem from="1684055620540" duration="8251000" />
       <workItem from="1684153748538" duration="13448000" />
-      <workItem from="1684180470092" duration="18751000" />
+      <workItem from="1684180470092" duration="18300000" />
+      <workItem from="1684316567254" duration="5176000" />
     </task>
     <servers />
   </component>
