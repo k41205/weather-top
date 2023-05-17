@@ -1,41 +1,86 @@
 #{extends 'main.html' /}
 #{set title:'Dashboard' /}
-
 #{menu id:"dashboard"/}
 
+<style>
+    .notification-container {
+        display: flex;
+        justify-content: space-around;
+        gap: 2%;
+    }
+
+    .notification-container .notification {
+        flex: 1;
+    }
+
+    .notification-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+</style>
+
 #{list items:stations, as:'station'}
-
 <div class="content box">
-  <h1 class="title">
-    ${station.name}
-  </h1>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Code</th>
-      <th>Temperature</th>
-      <th>Wind Speed</th>
-    </tr>
-    </thead>
-    <tbody>
-    #{list items:station.measures, as:'measure'}
-    <tr>
-      <td>
-        ${measure.code}
-      </td>
-      <td>
-        ${measure.temp}
-      </td>
-      <td>
-        ${measure.windSpeed}
-      </td>
-      <td>
-        </span></a>
-      </td>
-    </tr>
-    #{/list}
-    </tbody>
-  </table>
+    <h1 class="title">
+        ${station.name}
+    </h1>
+    <div class="notification-container">
+        <section class="notification-wrapper">
+            <div class="notification is-dark has-text-white has-text-centered">
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">${station.name}</h2>
+            </div>
+        </section>
+        <section class="notification-wrapper">
+            <div class="notification is-dark has-text-white has-text-centered">
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">Weather</h2>
+                <p>${WEATHER_CODES.get(station.measures.max{ it.id }.code)}</p>
+            </div>
+        </section>
+        <section class="notification-wrapper">
+            <div class="notification is-dark has-text-white has-text-centered">
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">Temperature</h2>
+                <p>${station.measures.max{ it.id }.temp}°C</p>
+                <p>${String.format("%.2f", station.measures.max{ it.id }.temp * 9/5 + 32)}°F</p>
+            </div>
+        </section>
+        <section class="notification-wrapper">
+            <div class="notification is-dark has-text-white has-text-centered">
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">Wind</h2>
+                <p>
+                    ${controllers.Dashboard.speedToBeaufort(station.measures.last().windSpeed)}
+                    bft
+                </p>
+            </div>
+        </section>
+        <section class="notification-wrapper">
+            <div class="notification is-dark has-text-white has-text-centered">
+                <h2 class="is-size-5 has-text-weight-bold has-text-white">Pressure</h2>
+                <p>${station.measures.max{ it.id }.pressure} hpa</p>
+            </div>
+        </section>
+    </div>
 
+    <table class="table is-bordered is-fullwidth">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Temperature</th>
+            <th>Wind Speed</th>
+            <th>Pressure</th>
+        </tr>
+        </thead>
+        <tbody>
+        #{list items:station.measures, as:'measure'}
+        <tr>
+            <td>${measure.code}</td>
+            <td>${measure.temp}</td>
+            <td>${measure.windSpeed}</td>
+            <td>${measure.pressure}</td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>
 </div>
 #{/list}

@@ -1,7 +1,6 @@
 package controllers;
 
 import models.Station;
-import models.Measure;
 import play.Logger;
 import play.mvc.Controller;
 
