@@ -24,5 +24,17 @@ public class StationCtrl extends Controller
         station.save();
         redirect ("/stations/" + id);
     }
+    public static void deleteMeasure (Long id, Long measureId)
+    {
+        Logger.info("Station ID: " + id + ", Measure ID: " + measureId);
+        Station station = Station.findById(id);
+        Measure measure = Measure.findById(measureId);
+        Logger.info ("Removing" + measureId);
+        station.measures.remove(measure);
+        station.save();
+        measure.delete();
+        redirect("/stations/" + id);
+    }
+
 }
 

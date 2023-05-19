@@ -3,15 +3,197 @@
 
 #{menu id:"dashboard", user:user /}
 
+#{if stations.isEmpty()}
+
+<p>No stations created yet</p>
+#{/if}
+
 #{list items:stations, as:'station'}
+
+
 <div class="content box">
-    <h1 class="title">
-        ${station.name}
-    </h1>
-    <a href="/stations/${station.id}" class="icon has-text-primary">
-        <i class="fas fa-folder"></i>
-    </a>
+    <style>
+
+        .icon {
+            width: 64px;
+            height: 64px;
+            display: block;
+        }
+
+        .fa-location-dot {
+            color: #3F6C12;
+        }
+
+        .fa-solid {
+            font-size: 64px;
+        }
+
+        .fa-cloud-sun {
+            color: #3F6C12;
+        }
+
+        .fa-temperature-empty {
+            color: #3F6C12;
+        }
+
+        .fa-wind {
+            color: midnightblue;
+        }
+
+        .fa-arrows-to-dot {
+            color: #3F6C12;
+        }
+
+        .fa-arrow-up {
+            color: #3F6C12;
+            font-size: 40px;
+        }
+
+        .fa-arrow-down {
+            color: #3F6C12;
+            font-size: 40px;
+        }
+
+        .custom-rounded {
+            border-radius: 4px !important;
+        }
+
+        .custom-gap {
+            gap: 10px;
+        }
+
+        .custom-icon-gap {
+            gap: 30px;
+        }
+    </style>
+    #{if station.measures.size() > 0}
+    <div class="columns has-text-white custom-gap">
+        <section class="column has-background-dark custom-rounded">
+            <div class="columns">
+                <div class="column">
+                    <h2 class="is-size-5 has-text-weight-bold has-text-white">${station.name}</h2>
+
+                    <p class="is-marginless">
+                        Lat: ${String.format("%.3f", station.latitude)}
+                    </p>
+                    <p class="is-marginless">
+                        Lng: ${String.format("%.3f", station.longitude)}
+                    </p>
+                </div>
+                <div class="column has-text-centered">
+                    <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="column has-background-dark custom-rounded">
+            <div class="columns">
+                <div class="column">
+                    <h2 class="is-size-5 has-text-weight-bold has-text-white">Weather</h2>
+                    <p class="is-marginless">
+                        ${WeatherUtils.WEATHER_CODES.get(station.measures.last().code)}
+                    </p>
+                </div>
+                <div class="column has-text-centered">
+                    <span class="icon"><i class="fa-solid fa-cloud-sun"></i></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="column has-background-dark custom-rounded">
+            <div class="columns">
+                <div class="column">
+                    <h2 class="is-size-5 has-text-weight-bold has-text-white">Temperature</h2>
+                    <p class="is-marginless">${station.measures.last().temp}°C</p>
+                    <p class="is-marginless">
+                        ${String.format("%.2f", station.measures.last().temp * 9/5 + 32)}°F
+                    </p>
+                    <p class="is-marginless">Max: ${WeatherUtils.maxValue(station.measures.temp)}</p>
+                    <p class="is-marginless">Min: ${WeatherUtils.minValue(station.measures.temp)}</p>
+                </div>
+                <div class="column is-flex is-flex-direction-column custom-icon-gap has-text-centered">
+                    <span class="icon"><i class="fa-solid fa-temperature-empty"></i></span>
+                    #{if WeatherUtils.checkTrend(station.measures.temp) == 'UP'}
+                    <span class="icon"><i class="fa-solid fa-arrow-up"></i></span>
+                    #{/if}
+                    #{if WeatherUtils.checkTrend(station.measures.temp) == 'DOWN'}
+                    <span class="icon"><i class="fa-solid fa-arrow-down"></i></span>
+                    #{/if}
+                </div>
+            </div>
+        </section>
+
+        <section class="column has-background-dark custom-rounded">
+            <div class="columns">
+                <div class="column">
+                    <h2 class="is-size-5 has-text-weight-bold has-text-white">Wind</h2>
+                    <p class="is-marginless">
+                        ${WeatherUtils.speedToBeaufort(station.measures.last().windSpeed)}
+                        bft
+                    </p>
+                    <p class="is-marginless">
+                        ${WeatherUtils.degreeToName(station.measures.last().windDirection)}
+                    </p>
+                    <p class="is-marginless">Feels like</p>
+                    <p class="is-marginless">
+                        ${String.format("%.2f", 13.12 + (0.6215 * station.measures.last().temp)
+                        - 11.37 * (Math.pow(station.measures.last().windSpeed, 0.16)) + (0.3965
+                        * station.measures.last().temp) *
+                        (Math.pow(station.measures.last().windSpeed, 0.16)))}
+                    </p>
+                    <p class="is-marginless">
+                        Max: ${WeatherUtils.maxValue(station.measures.windSpeed)}
+                        Min: ${WeatherUtils.minValue(station.measures.windSpeed)}
+                    </p>
+                </div>
+                <div class="column is-flex is-flex-direction-column custom-icon-gap has-text-centered">
+                    <span class="icon"><i class="fa-solid fa-wind"></i></span>
+                    #{if WeatherUtils.checkTrend(station.measures.windSpeed) == 'UP'}
+                    <span class="icon"><i class="fa-solid fa-arrow-up"></i></span>
+                    #{/if}
+                    #{if WeatherUtils.checkTrend(station.measures.windSpeed) == 'DOWN'}
+                    <span class="icon"><i class="fa-solid fa-arrow-down"></i></span>
+                    #{/if}
+                </div>
+            </div>
+        </section>
+
+        <section class="column has-background-dark custom-rounded">
+            <div class="columns">
+                <div class="column">
+                    <h2 class="is-size-5 has-text-weight-bold has-text-white">Pressure</h2>
+                    <p class="is-marginless">${station.measures.last().pressure} hpa</p>
+                    <p class="is-marginless">Max: ${WeatherUtils.maxValue(station.measures.pressure)}</p>
+                    <p class="is-marginless">Min: ${WeatherUtils.minValue(station.measures.pressure)}</p>
+                </div>
+                <div class="column is-flex is-flex-direction-column custom-icon-gap has-text-centered">
+                    <span class="icon"><i class="fa-solid fa-arrows-to-dot"></i></span>
+                    #{if WeatherUtils.checkTrend(station.measures.pressure) == 'UP'}
+                    <span class="icon"><i class="fa-solid fa-arrow-up"></i></span>
+                    #{/if}
+                    #{if WeatherUtils.checkTrend(station.measures.pressure) == 'DOWN'}
+                    <span class="icon"><i class="fa-solid fa-arrow-down"></i></span>
+                    #{/if}
+                </div>
+        </section>
+
+    </div>
+
+
 </div>
+#{/if} #{else}
+<h2 class="is-size-5 has-text-weight-bold">${station.name}</h2>
+<p>No measures available yet</p>
+#{/else}
+
+<a href="/stations/${station.id}" class="icon has-text-primary">
+    <i class="fas fa-folder"></i>
+</a>
+
+<a href="/dashboard/deleteStation/${station.id}" class="icon has-text-danger">
+    <i class="fas fa-trash"></i>
+</a>
+
 #{/list}
 
 #{addStation /}

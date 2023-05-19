@@ -4,42 +4,55 @@ Measure(m1):
   windSpeed: 3.5
   windDirection: 20
   pressure: 1004
+  time: 2023-05-18 10:30:45
+
 Measure(m2):
   code: 600
-  temp: 6
+  temp: 3
   windSpeed: 3
   windDirection: 120
   pressure: 999
+  time: 2023-05-18 14:20:15
+
 Measure(m3):
   code: 700
   temp: 4
   windSpeed: 2.5
   windDirection: 249
   pressure: 1020
+  time: 2023-05-19 11:15:30
+
 Measure(m4):
   code: 500
   temp: 6
   windSpeed: 1.8
   windDirection: 180
   pressure: 1007
+  time: 2023-05-18 16:45:10
+
 Measure(m5):
   code: 300
   temp: 7.5
   windSpeed: 4
   windDirection: 90
   pressure: 1001
+  time: 2023-05-19 13:05:55
+
 Measure(m6):
   code: 200
   temp: 3
   windSpeed: 4.3
   windDirection: 0
   pressure: 998
+  time: 2023-05-19 15:40:25
+
 Measure(m7):
   code: 100
   temp: 1
   windSpeed: 4
   windDirection: 360
   pressure: 980
+  time: 2023-05-19 09:55:05
 
 Station(s1):
   name: Dublin

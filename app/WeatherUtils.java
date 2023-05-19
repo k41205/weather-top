@@ -88,4 +88,22 @@ public class WeatherUtils {
         }
         return minValue;
     }
+
+    public static String checkTrend(ArrayList<Float> measures) {
+        if (measures.size() < 3) {
+            return "Insufficient measures";
+        }
+        // m1 last measure, m2 second last measure, m3 third last measure
+        float m1 = measures.get(measures.size() - 1);
+        float m2 = measures.get(measures.size() - 2);
+        float m3 = measures.get(measures.size() - 3);
+
+        if (m1 > m2 && m2 > m3) {
+            return "UP";
+        } else if (m1 < m2 && m2 < m3) {
+            return "DOWN";
+        } else {
+            return "NONE";
+        }
+    }
 }
