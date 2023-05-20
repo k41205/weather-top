@@ -6,10 +6,12 @@ import play.mvc.Controller;
 
 public class Accounts extends Controller {
   public static void signup() {
+    Logger.info("Rendering Signup");
     render("signup.html");
   }
 
   public static void login() {
+    Logger.info("Rendering Login");
     render("login.html");
   }
 
@@ -35,11 +37,13 @@ public class Accounts extends Controller {
   }
 
   public static void logout() {
+    Logger.info("Logging out");
     session.clear();
     redirect("/");
   }
 
   public static User getLoggedInUser() {
+    Logger.info("Checking Auth User");
     User user = null;
     if (session.contains("logged_in_Userid")) {
       String userId = session.get("logged_in_Userid");

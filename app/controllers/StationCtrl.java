@@ -2,19 +2,23 @@ package controllers;
 
 import models.Station;
 import models.Measure;
+import models.User;
+
 import play.Logger;
 import play.mvc.Controller;
 
 public class StationCtrl extends Controller {
 
   public static void index(Long id) {
+    User user = Accounts.getLoggedInUser();
     Station station = Station.findById(id);
-    Logger.info("Station id = " + id + "(StationCtrl.index)");
+    Logger.info("Rendering Station ID = " + id);
     render("station.html", station);
   }
 
   public static void addMeasure(Long id, int code, float temp, float windSpeed, float windDirection, float pressure) {
-    Logger.info("Adding a Measure (StationCtrl.addMeasure)");
+    User user = Accounts.getLoggedInUser();
+    Logger.info("Adding Measure ID = " + id);
     Measure measure = new Measure(code, temp, windSpeed, windDirection, pressure);
     Station station = Station.findById(id);
     station.measures.add(measure);
@@ -23,10 +27,10 @@ public class StationCtrl extends Controller {
   }
 
   public static void deleteMeasure(Long id, Long measureId) {
-    Logger.info("Station ID: " + id + ", Measure ID: " + measureId);
+    User user = Accounts.getLoggedInUser();
+    Logger.info("Deleting Measure ID: " + measureId + " from Station ID " + id);
     Station station = Station.findById(id);
     Measure measure = Measure.findById(measureId);
-    Logger.info("Removing" + measureId);
     station.measures.remove(measure);
     station.save();
     measure.delete();

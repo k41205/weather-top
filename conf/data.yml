@@ -56,8 +56,8 @@ Measure(m7):
 
 Station(s1):
   name: Dublin
-  latitude: 52.149
-  longitude: -6.994
+  latitude: 53.3498
+  longitude: 6.2603
   measures:
     - m1
     - m2
@@ -66,16 +66,16 @@ Station(s1):
 
 Station(s2):
   name: Waterford
-  latitude: 101.456
-  longitude: -19.044
+  latitude: 52.2593
+  longitude: 7.1101
   measures:
     - m5
     - m6
 
 Station(s3):
   name: Cork
-  latitude: 75.001
-  longitude: -6.204
+  latitude: 51.8985
+  longitude: 8.4756
   measures:
     - m7
 
