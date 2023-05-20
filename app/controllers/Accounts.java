@@ -19,7 +19,7 @@ public class Accounts extends Controller {
     Logger.info("Registering new user " + email);
     User user = new User(firstname, lastname, email, password);
     user.save();
-    redirect("/");
+    redirect("/login");
   }
 
   public static void authenticate(String email, String password) {

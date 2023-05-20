@@ -1,58 +1,3 @@
-<style>
-
-    .icon {
-        width: 64px;
-        height: 64px;
-        display: block;
-    }
-
-    .fa-location-dot {
-        color: #3F6C12;
-    }
-
-    .fa-solid {
-        font-size: 64px;
-    }
-
-    .fa-cloud-sun {
-        color: #3F6C12;
-    }
-
-    .fa-temperature-empty {
-        color: #3F6C12;
-    }
-
-    .fa-wind {
-        color: midnightblue;
-    }
-
-    .fa-arrows-to-dot {
-        color: #3F6C12;
-    }
-
-    .fa-arrow-up {
-        color: #3F6C12;
-        font-size: 40px;
-    }
-
-    .fa-arrow-down {
-        color: #3F6C12;
-        font-size: 40px;
-    }
-
-    .custom-rounded {
-        border-radius: 4px !important;
-    }
-
-    .custom-gap {
-        gap: 10px;
-    }
-
-    .custom-icon-gap {
-        gap: 30px;
-    }
-</style>
-
 #{if _station.measures.size() > 0}
 
 <table class="table is-bordered is-fullwidth">
@@ -84,5 +29,8 @@
 </table>
 
 #{/if} #{else}
-<p>No measures available</p>
+<div class="content py-6 has-text-centered">
+    <h2 class="py-3">No measures recorded yet</h2>
+    <p>Add your first measure below!</p>
+</div>
 #{/else}

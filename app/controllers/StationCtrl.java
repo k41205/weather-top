@@ -18,6 +18,23 @@ public class StationCtrl extends Controller {
 
   public static void addMeasure(Long id, int code, float temp, float windSpeed, float windDirection, float pressure) {
     User user = Accounts.getLoggedInUser();
+    String errorMsg = "";
+    if (temp < -20 || temp > 50) {
+      errorMsg += "Temperature must be a value between -20 and 50. <br>";
+    }
+    if (windSpeed < 0 || windSpeed > 117) {
+      errorMsg += "Wind Speed must be a value between 0 and 117. <br>";
+    }
+    if (windDirection < 0 || windDirection > 360) {
+      errorMsg += "Wind Direction must be a value between 0 and 360. <br>";
+    }
+    if (pressure < 500 || pressure > 1500) {
+      errorMsg += "Pressure must be a value between 500 and 1500. <br>";
+    }
+    if (!errorMsg.isBlank()) {
+      flash.put("error", errorMsg);
+      redirect("/stations/" + id);
+    }
     Logger.info("Adding Measure ID = " + id);
     Measure measure = new Measure(code, temp, windSpeed, windDirection, pressure);
     Station station = Station.findById(id);

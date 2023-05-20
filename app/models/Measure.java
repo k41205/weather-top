@@ -40,7 +40,7 @@ public class Measure extends Model {
   }
 
   public void setTemp(Float temp) {
-    if (temp != null) {
+    if (temp != null && temp >= -20 && temp <= 50) {
       this.temp = temp;
     } else {
       Logger.warn("Invalid temperature value");

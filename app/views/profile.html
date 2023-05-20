@@ -20,6 +20,12 @@
     </div>
 </section>
 
+#{if flash.get("error")}
+<div class="notification is-danger">
+    ${flash.get("error").raw()}
+</div>
+#{/if}
+
 <section class="section">
     <h2 class="subtitle is-4 has-text-centered mb-4">Edit Details</h2>
 
