@@ -10,6 +10,8 @@ GET / Start.index
 GET /dashboard Dashboard.index
 GET /about About.index
 
+GET /profile                Profile.index
+
 GET /stations/{id} StationCtrl.index
 GET     /stations/{id}/deletemeasure/{measureId}     StationCtrl.deleteMeasure
 
@@ -17,6 +19,7 @@ GET     /dashboard/deleteStation/{id}          Dashboard.deleteStation
 
 POST    /stations/{id}/addmeasure                StationCtrl.addMeasure
 POST    /dashboard/addstation                  Dashboard.addStation
+POST    /editdetails                           Profile.editDetails
 
 GET    /signup                                  Accounts.signup
 GET    /login                                   Accounts.login
@@ -34,4 +37,4 @@ GET /public/ staticDir:public
 
 # Catch all
 
--       /{controller}/{action}                  {controller}.{action}
+*       /{controller}/{action}                  {controller}.{action}
