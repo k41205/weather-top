@@ -12,11 +12,11 @@ public class StationCtrl extends Controller {
   public static void index(Long id) {
     Member member = Accounts.getLoggedInMember();
     Station station = Station.findById(id);
-    flash.put("error", "Station not found");
     if (member.stations.contains(station)) {
       Logger.info("Rendering Station ID = " + id);
       render("station.html", station);
     } else {
+      flash.put("error", "Station not found");
       ErrorCtrl.index();
     }
   }
