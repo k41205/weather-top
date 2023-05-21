@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.List;
 
-import models.User;
+import models.Member;
 import models.Station;
 import play.Logger;
 import play.mvc.Controller;
@@ -10,27 +10,27 @@ import play.mvc.Controller;
 public class Dashboard extends Controller {
 
   public static void index() {
-    User user = Accounts.getLoggedInUser();
+    Member member = Accounts.getLoggedInMember();
     Logger.info("Rendering Dashboard");
-    List<Station> stations = user.stations;
-    render("dashboard.html", user, stations);
+    List<Station> stations = member.stations;
+    render("dashboard.html", member, stations);
   }
 
   public static void addStation(String name, float latitude, float longitude) {
-    User user = Accounts.getLoggedInUser();
+    Member member = Accounts.getLoggedInMember();
     Logger.info("Adding a Station");
     Station station = new Station(name, latitude, longitude);
-    user.stations.add(station);
-    user.save();
+    member.stations.add(station);
+    member.save();
     redirect("/dashboard");
   }
 
   public static void deleteStation(Long id) {
-    User user = Accounts.getLoggedInUser();
+    Member member = Accounts.getLoggedInMember();
     Logger.info("Deleting a Station");
     Station station = Station.findById(id);
-    user.stations.remove(station);
-    user.save();
+    member.stations.remove(station);
+    member.save();
     station.delete();
     redirect("/dashboard");
   }

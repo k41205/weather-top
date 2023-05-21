@@ -20,11 +20,13 @@ POST    /stations/{id}/addmeasure                   StationCtrl.addMeasure
 POST    /dashboard/addstation                       Dashboard.addStation
 POST    /editdetails                                Profile.editDetails
 
-GET    /signup                                      Accounts.signup
-GET    /login                                       Accounts.login
-POST   /register                                    Accounts.register
-POST   /authenticate                                Accounts.authenticate
-GET    /logout                                      Accounts.logout
+GET     /signup                                     Accounts.signup
+GET     /login                                      Accounts.login
+POST    /register                                   Accounts.register
+POST    /authenticate                               Accounts.authenticate
+GET     /logout                                     Accounts.logout
+
+GET     /404                                        ErrorCtrl.index
 
 # Ignore favicon requests
 

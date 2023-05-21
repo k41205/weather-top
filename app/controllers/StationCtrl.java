@@ -2,7 +2,7 @@ package controllers;
 
 import models.Station;
 import models.Measure;
-import models.User;
+import models.Member;
 
 import play.Logger;
 import play.mvc.Controller;
@@ -10,14 +10,19 @@ import play.mvc.Controller;
 public class StationCtrl extends Controller {
 
   public static void index(Long id) {
-    User user = Accounts.getLoggedInUser();
+    Member member = Accounts.getLoggedInMember();
     Station station = Station.findById(id);
-    Logger.info("Rendering Station ID = " + id);
-    render("station.html", station);
+    flash.put("error", "Station not found");
+    if (member.stations.contains(station)) {
+      Logger.info("Rendering Station ID = " + id);
+      render("station.html", station);
+    } else {
+      ErrorCtrl.index();
+    }
   }
 
   public static void addMeasure(Long id, int code, float temp, float windSpeed, float windDirection, float pressure) {
-    User user = Accounts.getLoggedInUser();
+    Member member = Accounts.getLoggedInMember();
     String errorMsg = "";
     if (temp < -20 || temp > 50) {
       errorMsg += "Temperature must be a value between -20 and 50. <br>";
@@ -44,7 +49,7 @@ public class StationCtrl extends Controller {
   }
 
   public static void deleteMeasure(Long id, Long measureId) {
-    User user = Accounts.getLoggedInUser();
+    Member member = Accounts.getLoggedInMember();
     Logger.info("Deleting Measure ID: " + measureId + " from Station ID " + id);
     Station station = Station.findById(id);
     Measure measure = Measure.findById(measureId);

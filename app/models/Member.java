@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-public class User extends Model {
+public class Member extends Model {
 
   // -----  FIELDS ----- //
 
@@ -25,7 +25,7 @@ public class User extends Model {
 
   // -----  CONSTRUCTOR ----- //
 
-  public User(String firstname, String lastname, String email, String password) {
+  public Member(String firstname, String lastname, String email, String password) {
     setFirstname(firstname);
     setLastname(lastname);
     setEmail(email);
@@ -68,7 +68,7 @@ public class User extends Model {
 
   // -----  BESPOKEN METHODS ----- //
 
-  public static User findByEmail(String email) {
+  public static Member findByEmail(String email) {
     return find("email", email).first();
   }
 

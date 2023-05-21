@@ -79,7 +79,7 @@ Station(s3):
   measures:
     - m7
 
-User(u1):
+Member(a1):
   firstname: homer
   lastname: simpson
   email: homer@simpson.com
@@ -88,7 +88,7 @@ User(u1):
     - s1
     - s2
 
-User(u2):
+Member(a2):
   firstname: marge
   lastname: simpson
   email: marge@simpson.com
