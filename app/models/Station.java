@@ -32,6 +32,9 @@ public class Station extends Model {
 
   // -----  SETTERS ----- //
 
+  public String getName(){
+    return name;
+  }
   public void setName(String name) {
     if (name != null && !name.isEmpty()) {
       this.name = name;
